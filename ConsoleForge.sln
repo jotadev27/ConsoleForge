@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleForge.Core", "ConsoleForge.Core\ConsoleForge.Core.csproj", "{DC7F185E-AD7D-44A7-9BC7-1E6AE4B5FBE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleForge.Infrastructure", "ConsoleForge.Infrastructure\ConsoleForge.Infrastructure.csproj", "{2BE2223F-9E27-4332-84D7-A188CFE1973A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleForge.UI", "ConsoleForge.UI\ConsoleForge.UI.csproj", "{A470DB5D-655C-4BDE-8940-26E8C861C4ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleForge.Tests", "ConsoleForge.Tests\ConsoleForge.Tests.csproj", "{67653430-77A2-4F86-830F-654E9CC96966}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC7F185E-AD7D-44A7-9BC7-1E6AE4B5FBE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC7F185E-AD7D-44A7-9BC7-1E6AE4B5FBE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC7F185E-AD7D-44A7-9BC7-1E6AE4B5FBE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC7F185E-AD7D-44A7-9BC7-1E6AE4B5FBE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BE2223F-9E27-4332-84D7-A188CFE1973A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BE2223F-9E27-4332-84D7-A188CFE1973A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BE2223F-9E27-4332-84D7-A188CFE1973A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BE2223F-9E27-4332-84D7-A188CFE1973A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A470DB5D-655C-4BDE-8940-26E8C861C4ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A470DB5D-655C-4BDE-8940-26E8C861C4ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A470DB5D-655C-4BDE-8940-26E8C861C4ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A470DB5D-655C-4BDE-8940-26E8C861C4ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67653430-77A2-4F86-830F-654E9CC96966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67653430-77A2-4F86-830F-654E9CC96966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67653430-77A2-4F86-830F-654E9CC96966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67653430-77A2-4F86-830F-654E9CC96966}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

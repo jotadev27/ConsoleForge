@@ -1,0 +1,92 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+    <CornerRadius x:Key="OverlayCornerRadius">0</CornerRadius>
+
+    <Color x:Key="ForgeBackgroundColor">#131517</Color>
+    <Color x:Key="ForgePanelColor">#1B1E21</Color>
+    <Color x:Key="ForgePanelAltColor">#212528</Color>
+    <Color x:Key="ForgeRowAltColor">#1E2124</Color>
+    <Color x:Key="ForgeBorderColor">#2F3438</Color>
+    <Color x:Key="ForgeBorderStrongColor">#3D4348</Color>
+    <Color x:Key="ForgeTextColor">#C9CED2</Color>
+    <Color x:Key="ForgeTextDimColor">#798187</Color>
+    <Color x:Key="ForgeAccentColor">#C8551A</Color>
+    <Color x:Key="ForgeAccentHoverColor">#E0651F</Color>
+    <Color x:Key="ForgeAccentPressedColor">#A34410</Color>
+    <Color x:Key="ForgeSuccessColor">#6F9E4C</Color>
+    <Color x:Key="ForgeErrorColor">#B8483B</Color>
+    <Color x:Key="ForgeWarningColor">#C9A227</Color>
+
+    <SolidColorBrush x:Key="ForgeBackground" Color="{StaticResource ForgeBackgroundColor}" />
+    <SolidColorBrush x:Key="ForgePanel" Color="{StaticResource ForgePanelColor}" />
+    <SolidColorBrush x:Key="ForgePanelAlt" Color="{StaticResource ForgePanelAltColor}" />
+    <SolidColorBrush x:Key="ForgeRowAlt" Color="{StaticResource ForgeRowAltColor}" />
+    <SolidColorBrush x:Key="ForgeBorder" Color="{StaticResource ForgeBorderColor}" />
+    <SolidColorBrush x:Key="ForgeBorderStrong" Color="{StaticResource ForgeBorderStrongColor}" />
+    <SolidColorBrush x:Key="ForgeText" Color="{StaticResource ForgeTextColor}" />
+    <SolidColorBrush x:Key="ForgeTextDim" Color="{StaticResource ForgeTextDimColor}" />
+    <SolidColorBrush x:Key="ForgeAccent" Color="{StaticResource ForgeAccentColor}" />
+    <SolidColorBrush x:Key="ForgeAccentHover" Color="{StaticResource ForgeAccentHoverColor}" />
+    <SolidColorBrush x:Key="ForgeAccentPressed" Color="{StaticResource ForgeAccentPressedColor}" />
+    <SolidColorBrush x:Key="ForgeSuccess" Color="{StaticResource ForgeSuccessColor}" />
+    <SolidColorBrush x:Key="ForgeError" Color="{StaticResource ForgeErrorColor}" />
+    <SolidColorBrush x:Key="ForgeWarning" Color="{StaticResource ForgeWarningColor}" />
+
+    <FontFamily x:Key="ForgeMono">Consolas, DejaVu Sans Mono, Liberation Mono, Menlo, Monaco, Courier New, monospace</FontFamily>
+
+    <SolidColorBrush x:Key="ButtonBackground" Color="{StaticResource ForgePanelAltColor}" />
+    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#2B3034" />
+    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#161A1D" />
+    <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="#191C1F" />
+    <SolidColorBrush x:Key="ButtonForeground" Color="{StaticResource ForgeTextColor}" />
+    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#E4E9ED" />
+    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="{StaticResource ForgeTextColor}" />
+    <SolidColorBrush x:Key="ButtonForegroundDisabled" Color="#4C5458" />
+    <SolidColorBrush x:Key="ButtonBorderBrush" Color="{StaticResource ForgeBorderStrongColor}" />
+    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="{StaticResource ForgeAccentColor}" />
+    <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="{StaticResource ForgeAccentPressedColor}" />
+    <SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="#282C30" />
+
+    <SolidColorBrush x:Key="TextControlBackground" Color="#101214" />
+    <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#101214" />
+    <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#0C0E10" />
+    <SolidColorBrush x:Key="TextControlBackgroundDisabled" Color="#191C1F" />
+    <SolidColorBrush x:Key="TextControlBorderBrush" Color="{StaticResource ForgeBorderStrongColor}" />
+    <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="#4A5156" />
+    <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="{StaticResource ForgeAccentColor}" />
+    <SolidColorBrush x:Key="TextControlBorderBrushDisabled" Color="#282C30" />
+    <SolidColorBrush x:Key="TextControlForeground" Color="{StaticResource ForgeTextColor}" />
+    <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="{StaticResource ForgeTextColor}" />
+    <SolidColorBrush x:Key="TextControlForegroundFocused" Color="#E4E9ED" />
+    <SolidColorBrush x:Key="TextControlForegroundDisabled" Color="#4C5458" />
+    <SolidColorBrush x:Key="TextControlPlaceholderForeground" Color="{StaticResource ForgeTextDimColor}" />
+    <SolidColorBrush x:Key="TextControlSelectionHighlightColor" Color="{StaticResource ForgeAccentColor}" />
+
+    <SolidColorBrush x:Key="ComboBoxBackground" Color="#101214" />
+    <SolidColorBrush x:Key="ComboBoxBackgroundPointerOver" Color="#171A1D" />
+    <SolidColorBrush x:Key="ComboBoxBackgroundPressed" Color="#0C0E10" />
+    <SolidColorBrush x:Key="ComboBoxBackgroundDisabled" Color="#191C1F" />
+    <SolidColorBrush x:Key="ComboBoxForeground" Color="{StaticResource ForgeTextColor}" />
+    <SolidColorBrush x:Key="ComboBoxForegroundDisabled" Color="#4C5458" />
+    <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{StaticResource ForgeBorderStrongColor}" />
+    <SolidColorBrush x:Key="ComboBoxBorderBrushPointerOver" Color="#4A5156" />
+    <SolidColorBrush x:Key="ComboBoxBorderBrushPressed" Color="{StaticResource ForgeAccentColor}" />
+    <SolidColorBrush x:Key="ComboBoxDropDownBackground" Color="{StaticResource ForgePanelAltColor}" />
+    <SolidColorBrush x:Key="ComboBoxDropDownBorderBrush" Color="{StaticResource ForgeBorderStrongColor}" />
+    <SolidColorBrush x:Key="ComboBoxDropDownForeground" Color="{StaticResource ForgeTextColor}" />
+
+    <SolidColorBrush x:Key="ProgressBarBackground" Color="#0C0E10" />
+    <SolidColorBrush x:Key="ProgressBarForeground" Color="{StaticResource ForgeAccentColor}" />
+    <SolidColorBrush x:Key="ProgressBarBorderBrush" Color="{StaticResource ForgeBorderColor}" />
+
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillChecked" Color="{StaticResource ForgeAccentColor}" />
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillCheckedPointerOver" Color="{StaticResource ForgeAccentHoverColor}" />
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundStrokeChecked" Color="{StaticResource ForgeAccentColor}" />
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundStrokeUnchecked" Color="{StaticResource ForgeBorderStrongColor}" />
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillUnchecked" Color="#101214" />
+    <SolidColorBrush x:Key="CheckBoxForegroundUnchecked" Color="{StaticResource ForgeTextColor}" />
+    <SolidColorBrush x:Key="CheckBoxForegroundChecked" Color="{StaticResource ForgeTextColor}" />
+
+</ResourceDictionary>

@@ -1,0 +1,21 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ConsoleForge.UI.Views.ConfirmDialog"
+        Title="Confirm"
+        Width="460" SizeToContent="Height"
+        CanResize="False"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource ForgeBackground}">
+
+    <Border Classes="panel" BorderThickness="1">
+        <StackPanel Margin="16" Spacing="14">
+            <TextBlock Name="HeadingText" Classes="section" Text="CONFIRM" />
+            <TextBlock Name="MessageText" TextWrapping="Wrap" Text="Are you sure?" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                <Button Name="NoButton" Content="NO" Padding="18,6" Click="OnNo" />
+                <Button Name="YesButton" Content="YES" Classes="primary" Padding="18,6" Click="OnYes" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

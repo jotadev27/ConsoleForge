@@ -1,0 +1,353 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ConsoleForge.UI.ViewModels"
+        xmlns:conv="using:ConsoleForge.UI.Converters"
+        x:Class="ConsoleForge.UI.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="ConsoleForge"
+        Width="1440" Height="860"
+        MinWidth="1180" MinHeight="640"
+        CanResize="True"
+        SystemDecorations="None"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        Background="{StaticResource ForgeBackground}">
+
+    <Window.Resources>
+        <conv:StatusToBrushConverter x:Key="StatusBrush" />
+        <conv:EncoderNameConverter x:Key="EncoderName" />
+    </Window.Resources>
+
+    <Panel>
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- TITLE BAR -->
+        <Border Grid.Row="0" Name="TitleBar" Classes="bar" BorderThickness="0,0,0,1"
+                Padding="10,0,0,0" Height="34"
+                PointerPressed="OnTitleBarPointerPressed"
+                DoubleTapped="OnTitleBarDoubleTapped">
+            <Grid ColumnDefinitions="Auto,Auto,*,Auto,Auto">
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Classes="wordmark" Text="CONSOLE" />
+                    <TextBlock Classes="wordmark accent" Text="FORGE" />
+                </StackPanel>
+                <TextBlock Grid.Column="1" Classes="dim" Margin="12,0,0,0"
+                           Text="universal video transcoder — PS3 / PSP / PS VITA" />
+                <TextBlock Grid.Column="3" Classes="dim" Text="{Binding ToolchainStatus}"
+                           TextTrimming="CharacterEllipsis" MaxWidth="520" Margin="0,0,12,0" />
+
+                <StackPanel Grid.Column="4" Orientation="Horizontal">
+                    <Button Name="MinimizeButton" Classes="windowbutton"
+                            Click="OnMinimize" ToolTip.Tip="Minimize">
+                        <Path Classes="glyph" Data="M 0,0 H 11 V 1 H 0 Z"
+                              Fill="{StaticResource ForgeText}" />
+                    </Button>
+                    <Button Name="CloseButton" Classes="windowbutton close"
+                            Click="OnCloseRequested" ToolTip.Tip="Close">
+                        <Path Classes="glyph"
+                              Data="M 0,0.9 L 0.9,0 L 5,4.1 L 9.1,0 L 10,0.9 L 5.9,5 L 10,9.1 L 9.1,10 L 5,5.9 L 0.9,10 L 0,9.1 L 4.1,5 Z"
+                              Fill="{StaticResource ForgeText}" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- BODY -->
+        <Grid Grid.Row="1" ColumnDefinitions="276,*">
+
+            <!-- SIDEBAR -->
+            <Border Grid.Column="0" Classes="panel" BorderThickness="0,0,1,0">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Margin="10">
+
+                        <TextBlock Classes="section" Text="TARGET DEVICE" />
+                        <ListBox Classes="devices"
+                                 ItemsSource="{Binding Profiles}"
+                                 SelectedItem="{Binding SelectedProfile}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate x:CompileBindings="False">
+                                    <Grid ColumnDefinitions="52,*" Margin="8,6">
+                                        <TextBlock Grid.Column="0" Text="{Binding ShortName}"
+                                                   FontWeight="Bold" VerticalAlignment="Top" />
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Text="{Binding DisplayName}" />
+                                            <TextBlock Classes="dim" FontSize="11"
+                                                       Text="{Binding MaxResolution}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <Border Classes="bar" BorderThickness="1" Margin="0,8,0,0" Padding="8,6">
+                            <TextBlock Classes="dim" FontSize="11" TextWrapping="Wrap"
+                                       Text="{Binding ProfileHeadline}" />
+                        </Border>
+
+                        <Separator />
+
+                        <TextBlock Classes="section" Text="ENCODER" />
+                        <ComboBox ItemsSource="{Binding AvailableEncoders}"
+                                  SelectedItem="{Binding SelectedEncoderOrNull}"
+                                  HorizontalAlignment="Stretch">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:CompileBindings="False">
+                                    <TextBlock Text="{Binding Converter={StaticResource EncoderName}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <TextBlock Classes="dim" FontSize="11" TextWrapping="Wrap" Margin="0,6,0,0"
+                                   IsVisible="{Binding HasEncoderNote}" Text="{Binding EncoderNote}" />
+
+                        <Separator />
+
+                        <TextBlock Classes="section" Text="OUTPUT ROOT" />
+                        <TextBox Text="{Binding OutputRoot}" />
+                        <Button Content="BROWSE..." Command="{Binding BrowseOutputCommand}"
+                                HorizontalAlignment="Stretch" Margin="0,4,0,0" />
+                        <TextBlock Classes="dim" FontSize="11" TextWrapping="Wrap" Margin="0,6,0,0"
+                                   Text="Files are written into the subfolder each console expects, e.g. VIDEO/ for PSP and PS3, PS Vita/VIDEO/ for Vita." />
+
+                        <Separator />
+
+                        <CheckBox Content="ADVANCED MODE" IsChecked="{Binding AdvancedMode}" />
+
+                        <StackPanel IsVisible="{Binding AdvancedMode}" Margin="0,6,0,0">
+
+                            <TextBlock Classes="section" Text="RESOLUTION" Margin="0,4,0,4" />
+                            <ComboBox ItemsSource="{Binding ResolutionOptions}"
+                                      SelectedItem="{Binding SelectedResolutionOption}"
+                                      HorizontalAlignment="Stretch" />
+
+                            <Grid ColumnDefinitions="*,8,*" Margin="0,8,0,0">
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Classes="section" Text="VIDEO kbps" Margin="0,0,0,4" />
+                                    <ComboBox ItemsSource="{Binding VideoBitrateOptions}"
+                                              SelectedItem="{Binding VideoBitrateKbps}"
+                                              HorizontalAlignment="Stretch" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Classes="section" Text="AUDIO kbps" Margin="0,0,0,4" />
+                                    <ComboBox ItemsSource="{Binding AudioBitrateOptions}"
+                                              SelectedItem="{Binding AudioBitrateKbps}"
+                                              HorizontalAlignment="Stretch" />
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*,8,*" Margin="0,8,0,0">
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Classes="section" Text="CHANNELS" Margin="0,0,0,4" />
+                                    <ComboBox ItemsSource="{Binding AudioChannelOptions}"
+                                              SelectedItem="{Binding AudioChannels}"
+                                              HorizontalAlignment="Stretch" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Classes="section" Text="MAX FPS" Margin="0,0,0,4" />
+                                    <ComboBox ItemsSource="{Binding FrameRateOptions}"
+                                              SelectedItem="{Binding MaxFrameRate}"
+                                              HorizontalAlignment="Stretch" />
+                                </StackPanel>
+                            </Grid>
+
+                            <CheckBox Content="Allow upscaling" IsChecked="{Binding AllowUpscale}"
+                                      Margin="0,8,0,0" />
+                            <TextBlock Classes="dim" FontSize="11" TextWrapping="Wrap"
+                                       Text="Off by default: sources smaller than the device ceiling are kept at native size instead of being blown up." />
+                        </StackPanel>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <!-- QUEUE + LOG -->
+            <Grid Grid.Column="1" RowDefinitions="Auto,Auto,*,Auto,Auto,190">
+
+                <Border Grid.Row="0" Classes="bar" BorderThickness="0,0,0,1" Padding="8,6">
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="6">
+                            <Button Content="ADD FILES" Command="{Binding AddFilesCommand}" />
+                            <Button Content="ADD FOLDER" Command="{Binding AddFolderCommand}" />
+                            <Button Content="REMOVE" Command="{Binding RemoveSelectedCommand}" />
+                            <Button Content="CLEAR DONE" Command="{Binding ClearCompletedCommand}" />
+                            <Button Content="CLEAR ALL" Command="{Binding ClearQueueCommand}" />
+                        </StackPanel>
+                        <TextBlock Grid.Column="2" Classes="dim" Text="{Binding QueueSummary}" />
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1" Classes="tableHeader" Padding="8,4">
+                    <Grid ColumnDefinitions="72,*,196,196,64,88,92,88,54,76">
+                        <TextBlock Grid.Column="0" Classes="dim" FontWeight="Bold" Text="THUMB" />
+                        <TextBlock Grid.Column="1" Classes="dim" FontWeight="Bold" Text="FILE" />
+                        <TextBlock Grid.Column="2" Classes="dim" FontWeight="Bold" Text="SOURCE" />
+                        <TextBlock Grid.Column="3" Classes="dim" FontWeight="Bold" Text="TARGET" />
+                        <TextBlock Grid.Column="4" Classes="dim" FontWeight="Bold" Text="LENGTH" />
+                        <TextBlock Grid.Column="5" Classes="dim" FontWeight="Bold" Text="STATUS" />
+                        <TextBlock Grid.Column="6" Classes="dim" FontWeight="Bold" Text="PROGRESS" />
+                        <TextBlock Grid.Column="7" Classes="dim" FontWeight="Bold" Text="SPEED" />
+                        <TextBlock Grid.Column="8" Classes="dim" FontWeight="Bold" Text="ETA" />
+                        <TextBlock Grid.Column="9" Classes="dim" FontWeight="Bold" Text="ACTIONS" />
+                    </Grid>
+                </Border>
+
+                <ListBox Grid.Row="2" Classes="queue" Name="QueueList"
+                         ItemsSource="{Binding Queue}"
+                         SelectedItem="{Binding SelectedItem}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:QueueItemViewModel">
+                            <Border BorderBrush="{StaticResource ForgeBorder}" BorderThickness="0,0,0,1"
+                                    Padding="8,5">
+                                <Grid ColumnDefinitions="72,*,196,196,64,88,92,88,54,76">
+                                    <Button Grid.Column="0" Classes="thumb" Margin="0,0,10,0"
+                                            Command="{Binding $parent[ListBox].((vm:MainWindowViewModel)DataContext).PickCoverCommand}"
+                                            CommandParameter="{Binding}"
+                                            IsEnabled="{Binding SupportsCover}"
+                                            ToolTip.Tip="{Binding CoverTooltip}">
+                                        <Panel Width="48" Height="36">
+                                            <Image Source="{Binding CoverImage}" Stretch="Fill"
+                                                   IsVisible="{Binding !ShowsPlaceholder}" />
+                                            <Path IsVisible="{Binding ShowsPlaceholder}"
+                                                  Data="M 0,0 L 12,7 L 0,14 Z"
+                                                  Fill="{StaticResource ForgeTextDim}"
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <Border BorderBrush="{StaticResource ForgeAccent}" BorderThickness="2"
+                                                    IsVisible="{Binding HasCustomCover}" />
+                                        </Panel>
+                                    </Button>
+                                    <Panel Grid.Column="1" Margin="0,0,10,0">
+                                        <TextBlock Text="{Binding DisplayName}"
+                                                   IsVisible="{Binding !IsEditingName}"
+                                                   DoubleTapped="OnFileNameDoubleTapped"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   ToolTip.Tip="{Binding InputPath}" />
+                                        <TextBox Name="NameEditor" Text="{Binding NameEditText}"
+                                                 IsVisible="{Binding IsEditingName}"
+                                                 KeyDown="OnNameEditorKeyDown"
+                                                 LostFocus="OnNameEditorLostFocus"
+                                                 Padding="4,1" MinHeight="0" FontSize="12" />
+                                    </Panel>
+                                    <TextBlock Grid.Column="2" Classes="dim" Text="{Binding SourceSummary}"
+                                               Margin="0,0,10,0" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="3" Classes="dim" Text="{Binding TargetSummary}"
+                                               Margin="0,0,10,0" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="4" Classes="dim" Text="{Binding Duration}"
+                                               Margin="0,0,10,0" />
+                                    <TextBlock Grid.Column="5" Text="{Binding StatusText}" Margin="0,0,10,0"
+                                               Foreground="{Binding Status, Converter={StaticResource StatusBrush}}"
+                                               ToolTip.Tip="{Binding ErrorMessage}" />
+                                    <ProgressBar Grid.Column="6" Margin="0,0,10,0" MinWidth="0"
+                                                 HorizontalAlignment="Stretch"
+                                                 Value="{Binding Percent}" Minimum="0" Maximum="100" />
+                                    <TextBlock Grid.Column="7" Classes="dim" Text="{Binding Throughput}"
+                                               Margin="0,0,10,0" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="8" Classes="dim" Text="{Binding Remaining}"
+                                               TextTrimming="CharacterEllipsis" />
+
+                                    <StackPanel Grid.Column="9" Orientation="Horizontal" Spacing="4"
+                                                VerticalAlignment="Center">
+                                        <Button Classes="rowaction"
+                                                Command="{Binding $parent[ListBox].((vm:MainWindowViewModel)DataContext).PauseItemCommand}"
+                                                CommandParameter="{Binding}"
+                                                ToolTip.Tip="Pause this file. Resuming re-encodes it from the beginning."
+                                                IsVisible="{Binding CanPause}">
+                                            <Path Classes="glyph"
+                                                  Data="M 0,0 H 3 V 11 H 0 Z M 6,0 H 9 V 11 H 6 Z"
+                                                  Fill="{StaticResource ForgeText}" />
+                                        </Button>
+
+                                        <Button Classes="rowaction"
+                                                Command="{Binding $parent[ListBox].((vm:MainWindowViewModel)DataContext).ResumeItemCommand}"
+                                                CommandParameter="{Binding}"
+                                                ToolTip.Tip="Resume: re-encodes this file from the beginning."
+                                                IsVisible="{Binding CanResume}">
+                                            <Path Classes="glyph" Data="M 0,0 L 10,5.5 L 0,11 Z"
+                                                  Fill="{StaticResource ForgeText}" />
+                                        </Button>
+
+                                        <Button Classes="rowaction danger"
+                                                Command="{Binding $parent[ListBox].((vm:MainWindowViewModel)DataContext).CancelItemCommand}"
+                                                CommandParameter="{Binding}"
+                                                ToolTip.Tip="Cancel / remove this file"
+                                                IsVisible="{Binding CanCancel}">
+                                            <Path Classes="glyph" Data="M 0,0 H 10 V 10 H 0 Z"
+                                                  Fill="{StaticResource ForgeText}" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <GridSplitter Grid.Row="3" Height="4" ResizeDirection="Rows"
+                              Background="{StaticResource ForgeBorder}" />
+
+                <Border Grid.Row="4" Classes="tableHeader" Padding="8,4">
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <TextBlock Grid.Column="0" Classes="dim" FontWeight="Bold" Text="CONVERSION LOG" />
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="6">
+                            <Button Content="EXPORT" Padding="8,2" Command="{Binding ExportLogCommand}" />
+                            <Button Content="CLEAR" Padding="8,2" Command="{Binding ClearLogCommand}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <ListBox Grid.Row="5" Name="LogList" ItemsSource="{Binding LogEntries}"
+                         Background="#0E1012" SelectionMode="Single">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:CompileBindings="False">
+                            <TextBlock Text="{Binding}" FontSize="11" Padding="8,1"
+                                       Foreground="{StaticResource ForgeTextDim}"
+                                       TextWrapping="NoWrap" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
+        </Grid>
+
+        <!-- STATUS BAR -->
+        <Border Grid.Row="2" Classes="bar" BorderThickness="0,1,0,0" Padding="10,7">
+            <Grid ColumnDefinitions="Auto,16,*,16,Auto">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="6">
+                    <Button Content="START CONVERSION" Classes="primary" Padding="16,6"
+                            Command="{Binding StartCommand}" />
+                    <Button Content="CANCEL" Padding="14,6" Command="{Binding CancelCommand}" />
+                </StackPanel>
+
+                <Grid Grid.Column="2" RowDefinitions="Auto,Auto">
+                    <TextBlock Grid.Row="0" Text="{Binding StatusMessage}"
+                               TextTrimming="CharacterEllipsis" Margin="0,0,0,4" />
+                    <ProgressBar Grid.Row="1" MinWidth="0" Value="{Binding OverallPercent}"
+                                 Minimum="0" Maximum="100" />
+                </Grid>
+
+                <TextBlock Grid.Column="4" Classes="accent" FontWeight="Bold"
+                           Text="{Binding OverallPercent, StringFormat='{}{0:0}%'}" />
+            </Grid>
+        </Border>
+
+    </Grid>
+
+    <Grid Name="ResizeGrips" RowDefinitions="5,*,5" ColumnDefinitions="5,*,5">
+        <Border Name="GripNorthWest" Grid.Row="0" Grid.Column="0" Tag="NorthWest"
+                Background="Transparent" Cursor="TopLeftCorner" PointerPressed="OnResizeGripPressed" />
+        <Border Name="GripNorth" Grid.Row="0" Grid.Column="1" Tag="North"
+                Background="Transparent" Cursor="TopSide" PointerPressed="OnResizeGripPressed" />
+        <Border Name="GripNorthEast" Grid.Row="0" Grid.Column="2" Tag="NorthEast"
+                Background="Transparent" Cursor="TopRightCorner" PointerPressed="OnResizeGripPressed" />
+        <Border Name="GripWest" Grid.Row="1" Grid.Column="0" Tag="West"
+                Background="Transparent" Cursor="LeftSide" PointerPressed="OnResizeGripPressed" />
+        <Border Name="GripEast" Grid.Row="1" Grid.Column="2" Tag="East"
+                Background="Transparent" Cursor="RightSide" PointerPressed="OnResizeGripPressed" />
+        <Border Name="GripSouthWest" Grid.Row="2" Grid.Column="0" Tag="SouthWest"
+                Background="Transparent" Cursor="BottomLeftCorner" PointerPressed="OnResizeGripPressed" />
+        <Border Name="GripSouth" Grid.Row="2" Grid.Column="1" Tag="South"
+                Background="Transparent" Cursor="BottomSide" PointerPressed="OnResizeGripPressed" />
+        <Border Name="GripSouthEast" Grid.Row="2" Grid.Column="2" Tag="SouthEast"
+                Background="Transparent" Cursor="BottomRightCorner" PointerPressed="OnResizeGripPressed" />
+    </Grid>
+    </Panel>
+</Window>

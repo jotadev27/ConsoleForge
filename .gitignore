@@ -1,0 +1,10 @@
+bin/
+obj/
+*.user
+.vs/
+.idea/
+
+.claude/settings.local.json
+
+.DS_Store
+Thumbs.db
