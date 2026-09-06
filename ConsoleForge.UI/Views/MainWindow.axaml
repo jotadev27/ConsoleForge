@@ -5,6 +5,7 @@
         x:Class="ConsoleForge.UI.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="ConsoleForge"
+        Icon="avares://ConsoleForge/Assets/consoleforge.ico"
         Width="1440" Height="860"
         MinWidth="1180" MinHeight="640"
         CanResize="True"
